@@ -17,7 +17,7 @@ module cc_sync_wedge #(
 ) (
     input  logic clk_i,
     input  logic rst_ni,
-    input  logic clr_i,  // Synchronous clear
+    input  logic clr_i,
     input  logic en_i,
     input  logic serial_i,
     output logic r_edge_o,

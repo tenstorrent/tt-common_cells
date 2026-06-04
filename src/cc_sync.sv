@@ -18,7 +18,7 @@ module cc_sync #(
 ) (
     input  logic clk_i,
     input  logic rst_ni,
-    input  logic clr_i,  // Synchronous clear
+    input  logic clr_i,
     input  logic serial_i,
     output logic serial_o
 );

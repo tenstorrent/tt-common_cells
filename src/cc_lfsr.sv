@@ -33,7 +33,7 @@ module cc_lfsr #(
 ) (
   input  logic                 clk_i,
   input  logic                 rst_ni,
-  input  logic                 clr_i,  // Synchronous clear
+  input  logic                 clr_i,
   input  logic                 en_i,
   output logic [OutWidth-1:0]  out_o
 );

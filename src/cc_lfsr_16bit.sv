@@ -27,7 +27,7 @@ module cc_lfsr_16bit #(
 )(
     input  logic                      clk_i,
     input  logic                      rst_ni,
-    input  logic                      clr_i,  // Synchronous clear
+    input  logic                      clr_i,
     input  logic                      en_i,
     output logic [Width-1:0]          refill_way_oh_o,
     output logic [$clog2(Width)-1:0]  refill_way_bin_o

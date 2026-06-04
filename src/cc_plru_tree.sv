@@ -22,7 +22,7 @@ module cc_plru_tree #(
 ) (
   input  logic               clk_i,
   input  logic               rst_ni,
-  input  logic               clr_i,  // Synchronous clear
+  input  logic               clr_i,
   input  logic [Entries-1:0] used_i, // element i was used (one hot)
   output logic [Entries-1:0] plru_o  // element i is the least recently used (one hot)
 );
