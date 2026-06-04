@@ -222,6 +222,7 @@ module cc_cdc_2phase_src_clearable #(
   ) i_sync(
     .clk_i,
     .rst_ni,
+    .clr_i('0),
     .serial_i( async_ack_i ),
     .serial_o( ack_synced  )
   );
@@ -294,6 +295,7 @@ module cc_cdc_2phase_dst_clearable #(
   ) i_sync(
     .clk_i,
     .rst_ni,
+    .clr_i('0),
     .serial_i( async_req_i ),
     .serial_o( req_synced  )
   );

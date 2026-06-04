@@ -301,6 +301,7 @@ module cc_cdc_fifo_gray_src_clearable #(
     cc_sync #(.Stages(SyncStages)) i_sync (
       .clk_i    ( src_clk_i       ),
       .rst_ni   ( src_rst_ni      ),
+      .clr_i    ( '0              ),
       .serial_i ( async_rptr_i[i] ),
       .serial_o ( rptr[i]         )
     );
@@ -363,6 +364,7 @@ module cc_cdc_fifo_gray_dst_clearable #(
     cc_sync #(.Stages(SyncStages)) i_sync (
       .clk_i    ( dst_clk_i       ),
       .rst_ni   ( dst_rst_ni      ),
+      .clr_i    ( '0              ),
       .serial_i ( async_wptr_i[i] ),
       .serial_o ( wptr[i]         )
     );
@@ -381,6 +383,7 @@ module cc_cdc_fifo_gray_dst_clearable #(
   ) i_spill_register (
     .clk_i   ( dst_clk_i                ),
     .rst_ni  ( dst_rst_ni               ),
+    .clr_i   ( '0                       ),
     .flush_i ( dst_clear_i              ),
     .valid_i ( dst_valid & !dst_clear_i ),
     .ready_o ( dst_ready                ),

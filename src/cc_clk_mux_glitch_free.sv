@@ -180,6 +180,7 @@ module cc_clk_mux_glitch_free #(
     cc_sync #(.Stages(NumSyncStages)) i_sync_en(
       .clk_i    ( clks_i[i]                       ),
       .rst_ni   ( s_reset_synced[i]               ),
+      .clr_i    ( '0                              ),
       .serial_i ( s_glitch_filter_output_async[i] ),
       .serial_o ( s_gate_enable_sync[i]           )
     );

@@ -22,6 +22,7 @@ module cc_edge_detect (
     cc_sync_wedge i_sync_wedge (
         .clk_i    ( clk_i  ),
         .rst_ni   ( rst_ni ),
+        .clr_i    ( '0     ),
         .en_i     ( 1'b1   ),
         .serial_i ( d_i    ),
         .r_edge_o ( re_o   ),

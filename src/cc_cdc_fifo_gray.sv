@@ -204,6 +204,7 @@ module cc_cdc_fifo_gray_src #(
     cc_sync #(.Stages(SyncStages)) i_sync (
       .clk_i    ( src_clk_i       ),
       .rst_ni   ( src_rst_ni      ),
+      .clr_i    ( '0              ),
       .serial_i ( async_rptr_i[i] ),
       .serial_o ( rptr[i]         )
     );
@@ -265,6 +266,7 @@ module cc_cdc_fifo_gray_dst #(
     cc_sync #(.Stages(SyncStages)) i_sync (
       .clk_i    ( dst_clk_i       ),
       .rst_ni   ( dst_rst_ni      ),
+      .clr_i    ( '0              ),
       .serial_i ( async_wptr_i[i] ),
       .serial_o ( wptr[i]         )
     );
@@ -283,6 +285,7 @@ module cc_cdc_fifo_gray_dst #(
   ) i_spill_register (
     .clk_i   ( dst_clk_i   ),
     .rst_ni  ( dst_rst_ni  ),
+    .clr_i   ( '0          ),
     .valid_i ( dst_valid   ),
     .ready_o ( dst_ready   ),
     .data_i  ( dst_data    ),
