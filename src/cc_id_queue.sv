@@ -60,7 +60,7 @@ module cc_id_queue #(
 ) (
     input  logic    clk_i,
     input  logic    rst_ni,
-    input  logic    clr_i,  // Synchronous clear
+    input  logic    clr_i,
 
     input  id_t     inp_id_i,
     input  data_t   inp_data_i,
@@ -391,10 +391,20 @@ module cc_id_queue #(
 
     // Registers
     for (genvar i = 0; i < HtCapacity; i++) begin: gen_ht_ffs
-        `FFARNC(head_tail_q[i], head_tail_d[i], clr_i, head_tail_t'{free: 1'b1, default: '0}, clk_i, rst_ni)
+        `FFARNC(head_tail_q[i],
+                head_tail_d[i],
+                clr_i,
+                head_tail_t'{free: 1'b1, default: '0},
+                clk_i,
+                rst_ni)
     end
     for (genvar i = 0; i < Capacity; i++) begin: gen_data_ffs
-        `FFARNC(linked_data_q[i], linked_data_d[i], clr_i, linked_data_t'{free: 1'b1, default: '0}, clk_i, rst_ni)
+        `FFARNC(linked_data_q[i],
+                linked_data_d[i],
+                clr_i,
+                linked_data_t'{free: 1'b1, default: '0},
+                clk_i,
+                rst_ni)
     end
 
     // Status interface

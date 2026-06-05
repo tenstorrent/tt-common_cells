@@ -18,7 +18,7 @@ module cc_credit_counter #(
 ) (
   input  logic clk_i,
   input  logic rst_ni,
-  input  logic clr_i,  // Synchronous clear; reinitializes (soft-resets) credit, takes priority
+  input  logic clr_i,  // Synchronous clear; reinitializes credit, takes priority
 
   output credit_cnt_t credit_o,
 
@@ -48,7 +48,7 @@ module cc_credit_counter #(
   assign credit_left_o  = (credit_q != '0);
   assign credit_crit_o  = (credit_q == NumCredits-1);
   assign credit_full_o  = (credit_q == NumCredits);
-  
+
   `ifndef COMMON_CELLS_ASSERTS_OFF
   `ASSERT_NEVER(CreditUnderflow, credit_o == '0 && decrement)
   `ASSERT_NEVER(CreditOverflow, credit_o == NumCredits && increment)
