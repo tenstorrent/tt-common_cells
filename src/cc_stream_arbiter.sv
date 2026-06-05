@@ -13,7 +13,7 @@
 // asserted, `oup_data_o` remains invariant until the output handshake has occurred.  The
 // arbitration scheme is fair round-robin tree, see `cc_rr_arb_tree` for details.
 
-module cc_stream_arbiter_flushable #(
+module cc_stream_arbiter #(
     parameter type               data_t  = logic, // Vivado requires a default value for type parameters.
     parameter int unsigned       NumInp  = 1,     // Synopsys DC requires a default value for parameters.
     parameter cc_pkg::arb_mode_e ArbMode = cc_pkg::ARB_RR
@@ -21,7 +21,6 @@ module cc_stream_arbiter_flushable #(
     input  logic               clk_i,
     input  logic               rst_ni,
     input  logic               clr_i,
-    input  logic               flush_i,
 
     input  data_t [NumInp-1:0] inp_data_i,
     input  logic  [NumInp-1:0] inp_valid_i,
@@ -43,7 +42,6 @@ module cc_stream_arbiter_flushable #(
       .clk_i,
       .rst_ni,
       .clr_i,
-      .flush_i,
       .rr_i   ('0),
       .req_i  (inp_valid_i),
       .gnt_o  (inp_ready_o),
@@ -65,7 +63,6 @@ module cc_stream_arbiter_flushable #(
       .clk_i,
       .rst_ni,
       .clr_i,
-      .flush_i,
       .rr_i   ('0),
       .req_i  (inp_valid_i),
       .gnt_o  (inp_ready_o),
