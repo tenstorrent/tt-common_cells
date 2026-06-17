@@ -6,20 +6,35 @@ name: ci
 
 on:
   push:
+    branches:
+      - 'v*-dev'
+      - master
   pull_request:
   workflow_dispatch:
 
 jobs:
-  elaborate:
-    name: Elaborate all RTL modules w/ Verilator
+  verilator-elaboration:
+    name: Verilator Elaboration
     runs-on: ubuntu-latest
-    container:
-      image: hpretl/iic-osic-tools:2026.04
-      options: --user root
     steps:
-      - uses: actions/checkout@v6
-      - name: Run Verilator elaboration check
-        # Use a login shell to ensure that the environment is set up correctly
-        shell: bash -l -e -o pipefail {0}
-        run: |
-          make vlt-elab
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Free disk space
+        uses: ./.github/actions/free-space
+      - name: Run Verilator elaboration
+        uses: ./.github/actions/oseda-cmd
+        with:
+          cmd: "make vlt-elab"
+
+  verible-lint:
+    name: Verible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Free disk space
+        uses: ./.github/actions/free-space
+      - name: Run Verible lint
+        uses: ./.github/actions/oseda-cmd
+        with:
+          cmd: ".github/scripts/run_verible_lint.sh"

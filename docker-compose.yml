@@ -1,0 +1,21 @@
+# Copyright (c) 2026 ETH Zurich and University of Bologna.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Authors:
+# - Philippe Sauter <phsauter@iis.ee.ethz.ch>
+
+services:
+  pulp-docker:
+    image: hpretl/iic-osic-tools:2026.04
+    environment:
+      - UID=${UID}
+      - GID=${GID}
+    user: "${UID}:${GID}"
+    volumes:
+      - ./:/fosic/designs/common_cells
+    stdin_open: true
+    tty: true
+    working_dir: /fosic/designs/common_cells
+    entrypoint: /dockerstartup/scripts/ui_startup.sh
+    command: --skip bash
