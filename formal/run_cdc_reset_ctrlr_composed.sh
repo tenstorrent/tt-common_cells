@@ -18,5 +18,8 @@
 
 set -euo pipefail
 
+: "${SBY:=oseda sby}"
+read -r -a sby_cmd <<< "${SBY}"
+
 cd "$(dirname "$0")"
-"${SBY:=sby}" -f cdc_reset_ctrlr_composed.sby
+"${sby_cmd[@]}" -f cdc_reset_ctrlr_composed.sby

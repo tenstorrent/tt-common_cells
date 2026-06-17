@@ -18,7 +18,7 @@
 # reset-controller half and composed CDC clear-sequencing checks.
 
 YOSYS	?= yosys
-SBY	?= sby
+SBY	?= oseda sby
 RM	?= rm
 
 all: fifo.check counter.check fall_through_register.check cdc_reset_ctrlr_half.check \
@@ -44,14 +44,14 @@ fall_through_register.check: fall_through_register.sby ../src/cc_fall_through_re
 cdc_reset_ctrlr_half.check: cdc_reset_ctrlr_half.sby cc_cdc_reset_ctrlr_half_properties.sv \
 				../src/cc_cdc_reset_ctrlr.sv ../src/cc_cdc_4phase.sv \
 				../src/cc_sync.sv ../src/cc_pkg.sv
-	./run_cdc_reset_ctrlr_half.sh
+	SBY="$(SBY)" ./run_cdc_reset_ctrlr_half.sh
 	touch $@
 
 cdc_reset_ctrlr_composed.check: cdc_reset_ctrlr_composed.sby cc_cdc_reset_ctrlr_properties.sv \
 				cc_cdc_reset_ctrlr_half_properties.sv \
 				../src/cc_cdc_reset_ctrlr.sv ../src/cc_cdc_4phase.sv \
 				../src/cc_sync.sv ../src/cc_pkg.sv
-	./run_cdc_reset_ctrlr_composed.sh
+	SBY="$(SBY)" ./run_cdc_reset_ctrlr_composed.sh
 	touch $@
 
 .PHONY: clean

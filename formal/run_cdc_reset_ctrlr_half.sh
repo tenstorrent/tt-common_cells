@@ -20,7 +20,8 @@ set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-: "${SBY:=sby}"
+: "${SBY:=oseda sby}"
+read -r -a sby_cmd <<< "${SBY}"
 
 cd "${script_dir}"
-"${SBY}" -f cdc_reset_ctrlr_half.sby
+"${sby_cmd[@]}" -f cdc_reset_ctrlr_half.sby
