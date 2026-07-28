@@ -28,14 +28,14 @@
 `ifndef ASSERTS_OFF
 `ifndef SYNTHESIS
 `ifndef XSIM
-`define INC_ASSERT
+`define OCAH_PULP_INC_ASSERT
 `endif
 `endif   
 `endif
 // forcefully enable assertions with ASSERTS_OVERRIDE_ON, overriding any define that turns them off
 `ifdef ASSERTS_OVERRIDE_ON
-`ifndef INC_ASSERT
-`define INC_ASSERT
+`ifndef OCAH_PULP_INC_ASSERT
+`define OCAH_PULP_INC_ASSERT
 `endif
 `endif
 
@@ -64,7 +64,7 @@
 // Immediate assertion
 // Note that immediate assertions are sensitive to simulation glitches.
 `define OCAH_PULP_ASSERT_I(__name, __prop, __desc = "")        \
-`ifdef INC_ASSERT                                    \
+`ifdef OCAH_PULP_INC_ASSERT                                    \
   __name: assert (__prop)                            \
     else begin                                       \
       `OCAH_PULP_ASSERT_RPT(`OCAH_PULP_ASSERT_STRINGIFY(__name), __desc) \
@@ -73,7 +73,7 @@
 
 // Assertion in initial block. Can be used for things like parameter checking.
 `define OCAH_PULP_ASSERT_INIT(__name, __prop, __desc = "")       \
-`ifdef INC_ASSERT                                      \
+`ifdef OCAH_PULP_INC_ASSERT                                      \
   initial begin                                        \
     __name: assert (__prop)                            \
       else begin                                       \
@@ -86,7 +86,7 @@
 // at end of sim, all credits returned at end of sim, state machines in idle
 // at end of sim.
 `define OCAH_PULP_ASSERT_FINAL(__name, __prop, __desc = "")                            \
-`ifdef INC_ASSERT                                                            \
+`ifdef OCAH_PULP_INC_ASSERT                                                            \
   final begin                                                                \
     __name: assert (__prop || $test$plusargs("disable_assert_final_checks")) \
       else begin                                                             \
@@ -98,7 +98,7 @@
 // Assert a concurrent property directly.
 // It can be called as a module (or interface) body item.
 `define OCAH_PULP_ASSERT(__name, __prop, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                     \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                     \
   __name: assert property (@(posedge __clk) disable iff ((__rst) !== '0) (__prop))                    \
     else begin                                                                                        \
       `OCAH_PULP_ASSERT_RPT(`OCAH_PULP_ASSERT_STRINGIFY(__name), __desc)                                                  \
@@ -111,7 +111,7 @@
 
 // Assert a concurrent property NEVER happens
 `define OCAH_PULP_ASSERT_NEVER(__name, __prop, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                           \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                           \
   __name: assert property (@(posedge __clk) disable iff ((__rst) !== '0) not (__prop))                      \
     else begin                                                                                              \
       `OCAH_PULP_ASSERT_RPT(`OCAH_PULP_ASSERT_STRINGIFY(__name), __desc)                                                        \
@@ -121,13 +121,13 @@
 // Assert that signal has a known value (each bit is either '0' or '1') after reset.
 // It can be called as a module (or interface) body item.
 `define OCAH_PULP_ASSERT_KNOWN(__name, __sig, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                          \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                          \
   `OCAH_PULP_ASSERT(__name, !$isunknown(__sig), __clk, __rst, __desc)                                                \
 `endif
 
 //  Cover a concurrent property
 `define OCAH_PULP_COVER(__name, __prop, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST) \
-`ifdef INC_ASSERT                                                                       \
+`ifdef OCAH_PULP_INC_ASSERT                                                                       \
   __name: cover property (@(posedge __clk) disable iff ((__rst) !== '0) (__prop));      \
 `endif
 
@@ -137,28 +137,28 @@
 
 // Assert that signal is an active-high pulse with pulse length of 1 clock cycle
 `define OCAH_PULP_ASSERT_PULSE(__name, __sig, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                          \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                          \
   `OCAH_PULP_ASSERT(__name, $rose(__sig) |=> !(__sig), __clk, __rst, __desc)                                         \
 `endif
 
 // Assert that a property is true only when an enable signal is set.  It can be called as a module
 // (or interface) body item.
 `define OCAH_PULP_ASSERT_IF(__name, __prop, __enable, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                                  \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                                  \
   `OCAH_PULP_ASSERT(__name, (__enable) |-> (__prop), __clk, __rst, __desc)                                                   \
 `endif
 
 // Assert that signal has a known value (each bit is either '0' or '1') after reset if enable is
 // set.  It can be called as a module (or interface) body item.
 `define OCAH_PULP_ASSERT_KNOWN_IF(__name, __sig, __enable, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                                       \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                                       \
   `OCAH_PULP_ASSERT_KNOWN(__name``KnownEnable, __enable, __clk, __rst, __desc)                                                    \
   `OCAH_PULP_ASSERT_IF(__name, !$isunknown(__sig), __enable, __clk, __rst, __desc)                                                \
 `endif
 
 // Assert that (unmasked parts of) data are stable when valid is high and ready is low.
 `define OCAH_PULP_ASSERT_STABLE(__name, __valid, __ready, __data, __mask = '0, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                                                           \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                                                           \
   `OCAH_PULP_ASSERT(__name, (__valid) && !(__ready) |=> $stable((__data) & ~(__mask)), __clk, __rst, __desc)                                          \
 `endif
 
@@ -168,7 +168,7 @@
 
 // Assume a concurrent property
 `define OCAH_PULP_ASSUME(__name, __prop, __clk = `OCAH_PULP_ASSERT_DEFAULT_CLK, __rst = `OCAH_PULP_ASSERT_DEFAULT_RST, __desc = "") \
-`ifdef INC_ASSERT                                                                                     \
+`ifdef OCAH_PULP_INC_ASSERT                                                                                     \
   __name: assume property (@(posedge __clk) disable iff ((__rst) !== '0) (__prop))                    \
     else begin                                                                                        \
       `OCAH_PULP_ASSERT_RPT(`OCAH_PULP_ASSERT_STRINGIFY(__name), __desc)                                                  \
@@ -177,7 +177,7 @@
 
 // Assume an immediate property
 `define OCAH_PULP_ASSUME_I(__name, __prop, __desc = "")        \
-`ifdef INC_ASSERT                                    \
+`ifdef OCAH_PULP_INC_ASSERT                                    \
   __name: assume (__prop)                            \
     else begin                                       \
       `OCAH_PULP_ASSERT_RPT(`OCAH_PULP_ASSERT_STRINGIFY(__name), __desc) \
