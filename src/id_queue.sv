@@ -411,8 +411,8 @@ module id_queue #(
 
     // Validate parameters.
 `ifndef COMMON_CELLS_ASSERTS_OFF
-    `ASSERT_INIT(id_width_0, ID_WIDTH >= 1, "The ID must at least be one bit wide!")
-    `ASSERT_INIT(capacity_0, CAPACITY >= 1, "The queue must have capacity of at least one entry!")
+    `OCAH_PULP_ASSERT_INIT(id_width_0, ID_WIDTH >= 1, "The ID must at least be one bit wide!")
+    `OCAH_PULP_ASSERT_INIT(capacity_0, CAPACITY >= 1, "The queue must have capacity of at least one entry!")
 `endif
 
 endmodule
