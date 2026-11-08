@@ -1,3 +1,5 @@
+// Modified by Tenstorrent
+
 // Copyright 2019 ETH Zurich and University of Bologna.
 // Copyright and related rights are licensed under the Solderpad Hardware
 // License, Version 0.51 (the "License"); you may not use this file except in
@@ -133,7 +135,7 @@ module multiaddr_decode #(
   // These following assumptions check the validity of the address map.
   // check_idx: Enforces a valid index in the rule.
   `ifndef SYNTHESIS
-  always_comb begin : proc_check_addr_map
+  always @(addr_map_i) /* #0 rmcnulty: Fix zero delay error */ begin : proc_check_addr_map
     if (!$isunknown(addr_map_i)) begin
       for (int unsigned i = 0; i < NoRules; i++) begin
         // check the SLV ids

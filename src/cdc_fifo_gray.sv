@@ -108,7 +108,7 @@ module cdc_fifo_gray #(
   /// The FIFO's depth given as 2**LOG_DEPTH.
   parameter int LOG_DEPTH = 3,
   /// The number of synchronization registers to insert on the async pointers.
-  parameter int SYNC_STAGES = 2
+  parameter int SYNC_STAGES = 3
 ) (
   input  logic src_rst_ni,
   input  logic src_clk_i,
@@ -171,7 +171,7 @@ endmodule
 module cdc_fifo_gray_src #(
   parameter type T = logic,
   parameter int LOG_DEPTH = 3,
-  parameter int SYNC_STAGES = 2
+  parameter int SYNC_STAGES = 3
 )(
   input  logic src_rst_ni,
   input  logic src_clk_i,
@@ -231,7 +231,7 @@ endmodule
 module cdc_fifo_gray_dst #(
   parameter type T = logic,
   parameter int LOG_DEPTH = 3,
-  parameter int SYNC_STAGES = 2
+  parameter int SYNC_STAGES = 3
 )(
   input  logic dst_rst_ni,
   input  logic dst_clk_i,

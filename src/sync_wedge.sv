@@ -11,7 +11,7 @@
 // Antonio Pullini <pullinia@iis.ee.ethz.ch>
 
 module sync_wedge #(
-    parameter int unsigned STAGES = 2
+    parameter int unsigned STAGES = 3
 ) (
     input  logic clk_i,
     input  logic rst_ni,

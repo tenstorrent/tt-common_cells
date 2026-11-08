@@ -1,3 +1,5 @@
+// Modified by Tenstorrent
+
 // Copyright 2019 ETH Zurich and University of Bologna.
 // Copyright and related rights are licensed under the Solderpad Hardware
 // License, Version 0.51 (the "License"); you may not use this file except in
@@ -142,7 +144,7 @@ module addr_decode_dync #(
   // check_idx:          Enforces a valid index in the rule.
   // check_overlap:      Warns if there are overlapping address regions.
   `ifndef SYNTHESIS
-  always_comb begin : proc_check_addr_map
+  always @(addr_map_i or config_ongoing_i) /* #0 rmcnulty: Fix zero delay error */ begin : proc_check_addr_map
     if (!$isunknown(addr_map_i) && ~config_ongoing_i) begin
       for (int unsigned i = 0; i < NoRules; i++) begin
         `OCAH_PULP_ASSUME_I(check_start, Napot || addr_map_i[i].start_addr < addr_map_i[i].end_addr ||

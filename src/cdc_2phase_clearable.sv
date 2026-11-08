@@ -198,7 +198,7 @@ endmodule
 /// Half of the two-phase clock domain crossing located in the source domain.
 module cdc_2phase_src_clearable #(
   parameter type T = logic,
-  parameter int unsigned SYNC_STAGES = 2
+  parameter int unsigned SYNC_STAGES = 3
 ) (
   input  logic rst_ni,
   input  logic clk_i,
@@ -268,7 +268,7 @@ endmodule
 /// domain.
 module cdc_2phase_dst_clearable #(
   parameter type T = logic,
-  parameter int unsigned SYNC_STAGES = 2
+  parameter int unsigned SYNC_STAGES = 3
 )(
   input  logic rst_ni,
   input  logic clk_i,

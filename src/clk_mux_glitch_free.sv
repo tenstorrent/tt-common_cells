@@ -72,7 +72,7 @@
 
 module clk_mux_glitch_free #(
   parameter int unsigned  NUM_INPUTS = 2,
-  parameter int unsigned  NUM_SYNC_STAGES = 2,
+  parameter int unsigned  NUM_SYNC_STAGES = 3,
   parameter bit CLOCK_DURING_RESET = 1'b1, //< If 1, alow the selected clock to
                                            //propagate even during reset
                                            //assertion.
@@ -254,7 +254,7 @@ endmodule
 
 // Helper Module to generate an N-input clock OR-gate from a tree of tc_clk_or2 cells.
 module clk_or_tree #(
-  parameter int unsigned NUM_INPUTS
+  parameter int unsigned NUM_INPUTS = 1
 ) (
   input logic [NUM_INPUTS-1:0] clks_i,
   output logic clk_o
