@@ -108,7 +108,9 @@ module rr_arb_tree #(
   /// Output data.
   output DataType             data_o,
   /// Index from which input the data came from.
+  /* verilator lint_off UNOPTFLAT */
   output idx_t                idx_o
+  /* verilator lint_on UNOPTFLAT */
 );
 
   // just pass through in this corner case

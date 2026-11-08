@@ -66,9 +66,9 @@ module delta_counter #(
             counter_d = {1'b0, d_i};
         end else if (en_i) begin
             if (down_i) begin
-                counter_d = counter_q - delta_i;
+                counter_d = (WIDTH+1)'(counter_q - delta_i);
             end else begin
-                counter_d = counter_q + delta_i;
+                counter_d = (WIDTH+1)'(counter_q + delta_i);
             end
         end
     end

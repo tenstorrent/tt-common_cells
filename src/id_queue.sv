@@ -115,6 +115,7 @@ module id_queue #(
     linked_data_t [CAPACITY-1:0]    linked_data_d,  linked_data_q;
 
     logic                           full,
+                                    empty,
                                     match_in_id_valid,
                                     match_out_id_valid,
                                     no_in_id_match,
@@ -383,7 +384,7 @@ module id_queue #(
         end
     end
 
-    // Registers
+    // Reginexts
     for (genvar i = 0; i < HtCapacity; i++) begin: gen_ht_ffs
         always_ff @(posedge clk_i, negedge rst_ni) begin
             if (!rst_ni) begin

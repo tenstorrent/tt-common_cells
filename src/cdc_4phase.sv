@@ -91,7 +91,7 @@ endmodule
 /// Half of the 4-phase clock domain crossing located in the source domain.
 module cdc_4phase_src #(
   parameter type T = logic,
-  parameter int unsigned SYNC_STAGES = 2,
+  parameter int unsigned SYNC_STAGES = 3,
   parameter bit DECOUPLED = 1'b1,
   parameter bit SEND_RESET_MSG = 1'b0,
   parameter T RESET_MSG = T'('0)
@@ -204,7 +204,7 @@ endmodule
 /// domain.
 module cdc_4phase_dst #(
   parameter type T = logic,
-  parameter int unsigned SYNC_STAGES = 2,
+  parameter int unsigned SYNC_STAGES = 3,
   parameter bit DECOUPLED = 1
 )(
   input  logic rst_ni,

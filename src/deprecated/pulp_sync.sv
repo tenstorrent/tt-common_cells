@@ -12,7 +12,7 @@
 
 module pulp_sync
   #(
-    parameter STAGES = 2
+    parameter STAGES = 3
     )
    (
     input  logic clk_i,

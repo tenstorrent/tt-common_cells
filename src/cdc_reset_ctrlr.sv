@@ -112,7 +112,7 @@ module cdc_reset_ctrlr
   /// The number of synchronization stages to use for the
   /// clear signal request/acknowledge. Must be less than the
   /// number of sync stages used in the CDC.
-  parameter int unsigned SYNC_STAGES = 2,
+  parameter int unsigned SYNC_STAGES = 3,
   /// Whether an asynchronous reset shall cause a clear
   /// request to be sent to the other side.
   parameter logic        CLEAR_ON_ASYNC_RESET = 1'b1
@@ -190,7 +190,7 @@ module cdc_reset_ctrlr_half
   /// The number of synchronization stages to use for the
   /// clear signal request/acknowledge. Must be less than
   /// the number of sync stages used in the CDC
-  parameter int unsigned SYNC_STAGES = 2,
+  parameter int unsigned SYNC_STAGES = 3,
   /// Whether an asynchronous reset shall cause a clear
   /// request to be sent to the other side.
   parameter logic        CLEAR_ON_ASYNC_RESET = 1'b1
@@ -388,7 +388,7 @@ module cdc_reset_ctrlr_half
 
   cdc_4phase_src #(
     .T(clear_seq_phase_e),
-    .SYNC_STAGES(2),
+    .SYNC_STAGES(SYNC_STAGES),//saket :: Removed Hard-Coded Param
     .DECOUPLED(0), // Important! The CDC must not be in decoupled mode.
                    // Otherwise we will proceed to the next state without
                    // waiting for the new state to arrive on the other side.
@@ -420,7 +420,7 @@ module cdc_reset_ctrlr_half
 
   cdc_4phase_dst #(
     .T(clear_seq_phase_e),
-    .SYNC_STAGES(2),
+    .SYNC_STAGES(SYNC_STAGES),//ksaket :: Removed Hardcoded Param
     .DECOUPLED(0) // Important! The CDC must not be in decoupled mode. Otherwise
                   // we will proceed to the next state without waiting for the
                   // new state to arrive on the other side.
